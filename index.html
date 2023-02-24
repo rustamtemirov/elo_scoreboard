@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>League of Legends Leaderboard</title>
+    <style>
+      /* Style the navigation bar */
+      .navbar {
+        /* overflow: hidden; */
+        background-color: #4CAF50;
+        position: fixed;
+        top: 0;
+        width: 100%;
+      }
+
+      /* Style the links inside the navigation bar */
+      .navbar a {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+
+      /* Change color on hover */
+      .navbar a:hover {
+        background-color: #3e8e41;
+      }
+
+      /* Style the leaderboard table */
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 80px;
+      }
+
+      th, td {
+        text-align: left;
+        padding: 8px;
+      }
+
+      th {
+        background-color: #4CAF50;
+        color: white;
+      }
+
+      tr:nth-child(even){background-color: #f2f2f2}
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="#">Tournament</a>
+      <a href="#">Find Partner</a>
+    </div>
+   <!-- <div > <h1> League of Legends Leaderboard </h1> </div>  -->
+    <table>
+      <tr>
+        <th>Rank</th>
+        <th>Summoner Name</th>
+        <th>Win/Loss Ratio</th>
+        <th>Champion Mastery Score</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Summoner1</td>
+        <td>3.0</td>
+        <td>100,000</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Summoner2</td>
+        <td>2.5</td>
+        <td>90,000</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Summoner3</td>
+        <td>2.3</td>
+        <td>80,000</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Summoner4</td>
+        <td>2.1</td>
+        <td>70,000</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Summoner5</td>
+        <td>1.9</td>
+        <td>60,000</td>
+      </tr>
+    </table>
+  </body>
+</html>
