@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import Flask, render_template
 import requests
 from datetime import datetime, timedelta
 import time
@@ -16,7 +17,7 @@ listOfUsers = ["CaPs"]
 playedGames = {}
 app = Flask(__name__)
 
-@app.route("/leaderboard")
+@app.route("/tournaments")
 def loadTheBoard():
     for user in listOfUsers:
         # Get summoner ID
@@ -50,10 +51,16 @@ def loadTheBoard():
         else:
             print(f"Error retrieving match history: {matches_response.status_code}")
             exit()
+    return render_template('tournaments.html')
 
 
-@app.route('/')
-def hello():
-    return 'Hello, LOLboard!'
+@app.route('/index')
+def index():
+    return render_template('index.html')
+
+if __name__ == '__main__':
+    app.run()
+
+    
 
 
