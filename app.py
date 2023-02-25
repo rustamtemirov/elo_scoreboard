@@ -51,10 +51,11 @@ def loadTheBoard():
         else:
             print(f"Error retrieving match history: {matches_response.status_code}")
             exit()
+
     return render_template('tournaments.html')
 
 
-@app.route('/index')
+@app.route('/')
 def index():
     return render_template('index.html')
 
