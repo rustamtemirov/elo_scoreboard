@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 import requests
 from datetime import datetime, timedelta
 import time
@@ -17,8 +17,9 @@ listOfUsers = ["CaPs"]
 playedGames = {}
 app = Flask(__name__)
 
-@app.route("/tournaments")
-def loadTheBoard():
+@app.route("/tournament")
+def tournament():
+    return render_template('tournament.html')
     for user in listOfUsers:
         # Get summoner ID
         summoner_url = f"https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{user}?api_key={api_key}"
@@ -52,12 +53,16 @@ def loadTheBoard():
             print(f"Error retrieving match history: {matches_response.status_code}")
             exit()
 
-    return render_template('tournaments.html')
+    # return render_template('tournament.html')
 
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/tournaments')
+def tournaments():
+    return render_template('tournaments.html')
 
 if __name__ == '__main__':
     app.run()
