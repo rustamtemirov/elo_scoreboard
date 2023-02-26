@@ -64,6 +64,10 @@ def index():
 def tournaments():
     return render_template('tournaments.html')
 
+@app.route('/enemy_finder')
+def enemy_finder():
+    return render_template('enemy_finder.html')
+
 if __name__ == '__main__':
     app.run()
 
