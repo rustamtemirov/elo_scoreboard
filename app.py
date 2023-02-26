@@ -12,7 +12,7 @@ annual_time =  current_time - (365 * 24 * 60 * 60)
 end_time = current_time
 api_key = "RGAPI-6d872b59-b070-4ca4-be26-f6fb08b69435"
 
-listOfUsers = ["CaPs", "Dmlkdd", "adsMMM", "lvoDF", "ds2CC"]
+listOfUsers = ["CaPs", "BrokenBlade", "Yike", "Hans sama", "Mikyx"]
 # data structure to keep the games of the player by player name to games player relation
 
 app = Flask(__name__)
@@ -58,7 +58,7 @@ def tournament():
                 total =0
                 playedGames.sort(reverse=True)
                 arrSize = 0
-                
+
                 if len(playedGames) < 10:
                     arrSize = len(playedGames)
                 else:
