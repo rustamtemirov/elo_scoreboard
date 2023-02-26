@@ -3,5 +3,26 @@
 {% block title %} League of Legends Leaderboard {% endblock %}
 
 {% block content %}
-    
+<main class="container my-3 violet-bg">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Level</th>
+            <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user['index'] }}</td>
+                    <td>{{ user['name'] }}</td>
+                    <td>{{ user['level'] }}</td>
+                    <td>{{ user['rating'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
 {% endblock %}

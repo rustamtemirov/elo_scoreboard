@@ -12,6 +12,39 @@ annual_time =  current_time - (365 * 24 * 60 * 60)
 end_time = current_time
 api_key = os.environ.get("API_KEY")
 
+users = [
+        {
+        "index": 1,
+        "name": "CSksa",
+        "level": "32",
+        "rating": "332"
+        },
+        {
+        "index": 2,
+        "name": "Dmlkdd",
+        "level": "30",
+        "rating": "310"
+        },
+        {
+        "index": 3,
+        "name": "adsMMM",
+        "level": "27",
+        "rating": "299"
+        },
+        {
+        "index": 4,
+        "name": "lvoDF",
+        "level": "21",
+        "rating": "250"
+        },
+        {
+        "index": 5,
+        "name": "ds2CC",
+        "level": "16",
+        "rating": "214"
+        }
+    ]
+
 listOfUsers = ["CaPs"]
 # data structure to keep the games of the player by player name to games player relation
 playedGames = {}
@@ -19,7 +52,7 @@ app = Flask(__name__)
 
 @app.route("/tournament")
 def tournament():
-    return render_template('tournament.html')
+    return render_template('tournament.html', users=users)
     for user in listOfUsers:
         # Get summoner ID
         summoner_url = f"https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{user}?api_key={api_key}"
@@ -61,16 +94,16 @@ def index():
     return render_template('index.html')
 
 @app.route('/tournaments')
-def tournaments():
+def tournaments():  
     return render_template('tournaments.html')
 
 @app.route('/enemy_finder')
 def enemy_finder():
-    return render_template('enemy_finder.html')
+    return render_template('enemy_finder.html', users=users)
 
 if __name__ == '__main__':
-    app.run()
-
+    app.run(debug=True)
+    
     
 
 
