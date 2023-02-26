@@ -10,7 +10,7 @@ monthly_time = current_time - (30 * 24 * 60 * 60)
 weekly_time = current_time - (7 * 24 * 60 * 60)
 annual_time =  current_time - (365 * 24 * 60 * 60)
 end_time = current_time
-api_key = os.environ.get("API_KEY")
+api_key = "RGAPI-6d872b59-b070-4ca4-be26-f6fb08b69435"
 
 listOfUsers = ["CaPs", "BrokenBlade", "Yike", "Hans sama", "Mikyx"]
 # data structure to keep the games of the player by player name to games player relation
@@ -35,12 +35,13 @@ def tournament():
             exit()
         
         # Get match history
-        matches_url = f"https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/{puu_id}/ids?startTime={annual_time}&endTime={end_time}&start=0&count=100&api_key={api_key}"
+        matches_url = f"https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/{puu_id}/ids?startTime={annual_time}&endTime={end_time}&start=0&count=20&api_key={api_key}"
         matches_response = requests.get(matches_url)
         if matches_response.status_code == 200:
-            match_data = matches_response.json()
             
+            match_data = matches_response.json()
             for match in match_data:
+                time.sleep(1) 
                 match_url = f"https://europe.api.riotgames.com/lol/match/v5/matches/{match}?api_key={api_key}"
                 match_response_json = requests.get(match_url).json()
                 info = match_response_json["info"]
@@ -78,8 +79,9 @@ def tournament():
         userDict["rating"] = total
         userDict["level"] = summoner_level
         userData.append(userDict)
+        sorted_data = sorted(userData, key=lambda x: x["rating"], reverse=True)
 
-    return render_template('tournaments.html', users=userData)
+    return render_template('tournament.html', users=sorted_data)
 
 
 @app.route('/')
