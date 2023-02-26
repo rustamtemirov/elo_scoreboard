@@ -10,50 +10,18 @@ monthly_time = current_time - (30 * 24 * 60 * 60)
 weekly_time = current_time - (7 * 24 * 60 * 60)
 annual_time =  current_time - (365 * 24 * 60 * 60)
 end_time = current_time
-api_key = os.environ.get("API_KEY")
+api_key = "RGAPI-6d872b59-b070-4ca4-be26-f6fb08b69435"
 
-users = [
-        {
-        "index": 1,
-        "name": "CSksa",
-        "level": "32",
-        "rating": "332"
-        },
-        {
-        "index": 2,
-        "name": "Dmlkdd",
-        "level": "30",
-        "rating": "310"
-        },
-        {
-        "index": 3,
-        "name": "adsMMM",
-        "level": "27",
-        "rating": "299"
-        },
-        {
-        "index": 4,
-        "name": "lvoDF",
-        "level": "21",
-        "rating": "250"
-        },
-        {
-        "index": 5,
-        "name": "ds2CC",
-        "level": "16",
-        "rating": "214"
-        }
-    ]
-
-listOfUsers = ["CaPs"]
+listOfUsers = ["CaPs", "Dmlkdd", "adsMMM", "lvoDF", "ds2CC"]
 # data structure to keep the games of the player by player name to games player relation
-playedGames = {}
+
 app = Flask(__name__)
 
 @app.route("/tournament")
 def tournament():
-    return render_template('tournament.html', users=users)
+    userData = []
     for user in listOfUsers:
+        playedGames = []
         # Get summoner ID
         summoner_url = f"https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{user}?api_key={api_key}"
         summoner_response = requests.get(summoner_url)
@@ -61,6 +29,7 @@ def tournament():
         if summoner_response.status_code == 200:
             summoner_data = summoner_response.json()
             puu_id = summoner_data["puuid"]
+            summoner_level = summoner_data["summonerLevel"]
         else:
             print(f"Error retrieving summoner data: {summoner_response.status_code}")
             exit()
@@ -70,7 +39,7 @@ def tournament():
         matches_response = requests.get(matches_url)
         if matches_response.status_code == 200:
             match_data = matches_response.json()
-            print(match_data)
+            
             for match in match_data:
                 match_url = f"https://europe.api.riotgames.com/lol/match/v5/matches/{match}?api_key={api_key}"
                 match_response_json = requests.get(match_url).json()
@@ -80,13 +49,29 @@ def tournament():
                 for participant in participants:
                 
                     if participant["summonerName"].lower() == user.lower():
-                        playedGames[user] = participant
+                        win =False
+                        if participant["win"] == "true":
+                            win = True
+                        S = 0.35*win + int(participant["kills"])*0.2+ int(participant["deaths"])*0.1 + int(participant["assists"])*0.1+int(participant["physicalDamageDealt"])*0.15 + int(participant["totalHeal"])*0.1
+                        playedGames.append(S)
                         break
+                total =0
+                playedGames.sort(reverse=True)
+                for i in range(len(playedGames)):
+                    total += playedGames[i]
+                total = total/10
+
         else:
             print(f"Error retrieving match history: {matches_response.status_code}")
             exit()
+        
+        userDict = {}
+        userDict["name"] = user
+        userDict["rating"] = total
+        userDict["level"] = summoner_level
+        userData.append(userDict)
 
-    # return render_template('tournament.html')
+    return render_template('tournaments.html', userData=userData)
 
 
 @app.route('/')
