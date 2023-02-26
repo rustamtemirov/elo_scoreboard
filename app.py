@@ -57,9 +57,17 @@ def tournament():
                         break
                 total =0
                 playedGames.sort(reverse=True)
-                for i in range(len(playedGames)):
+                arrSize = 0
+                
+                if len(playedGames) < 10:
+                    arrSize = len(playedGames)
+                else:
+                    arrSize = 10
+
+                for i in range(arrSize):
                     total += playedGames[i]
-                total = total/10
+                
+                total = total/arrSize
 
         else:
             print(f"Error retrieving match history: {matches_response.status_code}")
@@ -71,7 +79,7 @@ def tournament():
         userDict["level"] = summoner_level
         userData.append(userDict)
 
-    return render_template('tournaments.html', userData=userData)
+    return render_template('tournaments.html', users=userData)
 
 
 @app.route('/')
