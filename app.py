@@ -10,7 +10,7 @@ monthly_time = current_time - (30 * 24 * 60 * 60)
 weekly_time = current_time - (7 * 24 * 60 * 60)
 annual_time =  current_time - (365 * 24 * 60 * 60)
 end_time = current_time
-api_key = "RGAPI-6d872b59-b070-4ca4-be26-f6fb08b69435"
+api_key = os.environ.get("API_KEY")
 
 listOfUsers = ["CaPs", "BrokenBlade", "Yike", "Hans sama", "Mikyx"]
 # data structure to keep the games of the player by player name to games player relation
